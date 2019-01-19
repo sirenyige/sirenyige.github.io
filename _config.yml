@@ -78,8 +78,10 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
-
+  type: git
+  repo: https://GitHub_Token@github.com/sirenyige/sirenyige.github.io.git
+  branch: master
+  message:
 
 search:
   path: search.xml
