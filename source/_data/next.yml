@@ -214,6 +214,8 @@ avatar:
   # If true, the avatar would be rotated with the cursor.
   rotated: false
 
-auto_excerpt:
-    enable: false
-    length: 150
+deploy:
+  type: git
+  repo: https://GitHub_Token@github.com/sirenyige/sirenyige.github.io.git
+  branch: master
+  message:
