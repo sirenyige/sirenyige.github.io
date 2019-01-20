@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Haskell-函数的语法]]></title>
+    <url>%2FHaskell-%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[模式匹配模式匹配通过检查数据的特定结构来检查其是否匹配，并按模式从中取得数据。在定义函数时，可以为不同的模式分别定义函数体，可以匹配一切数据类型—数字，字符，List，元组，等等。 1234567sayMe :: (Integral a) =&gt; a -&gt; String sayMe 1 = &quot;One!&quot; sayMe 2 = &quot;Two!&quot; sayMe 3 = &quot;Three!&quot; sayMe 4 = &quot;Four!&quot; sayMe 5 = &quot;Five!&quot; sayMe x = &quot;Not between 1 and 5&quot; 万能匹配：最后一个匹配可以匹配一切数值并将其绑定为x。在定义模式时，一定要留一个万能匹配的模式，保证程序就不会因为不可预料的输入而崩溃。 Tuple 匹配12addVectors :: (Num a) =&gt; (a, a) -&gt; (a, a) -&gt; (a, a) addVectors (x1, y1) (x2, y2) = (x1 + x2, y1 + y2) List 匹配12345tell :: (Show a) =&gt; [a] -&gt; String tell [] = &quot;The list is empty&quot; tell (x:[]) = &quot;The list has one element: &quot; ++ show x tell (x:y:[]) = &quot;The list has two elements: &quot; ++ show x ++ &quot; and &quot; ++ show y tell (x:y:_) = &quot;This list is long. The first two elements are: &quot; ++ show x ++ &quot; and &quot; ++ show y as模式将一个名字和@置于模式前，可以在按模式分割什么东西时仍保留对其整体的引用。 123capital :: String -&gt; String capital &quot;&quot; = &quot;Empty string, whoops!&quot; capital all@(x:xs) = &quot;The first letter of &quot; ++ all ++ &quot; is &quot; ++ [x] 门卫门卫（guard）则用来检查一个值的某项属性是否为真。 123456bmiTell :: (RealFloat a) =&gt; a -&gt; String bmiTell bmi | bmi &lt;= 18.5 = &quot;You&apos;re underweight, you emo, you!&quot; | bmi &lt;= 25.0 = &quot;You&apos;re supposedly normal. Pffft, I bet you&apos;re ugly!&quot; | bmi &lt;= 30.0 = &quot;You&apos;re fat! Lose some weight, fatty!&quot; | otherwise = &quot;You&apos;re a whale, congratulations!&quot; where关键字where关键字跟在门卫后面（最好是与竖线缩进一致），可以定义多个名字和函数，这些名字对每个门卫都是可见的，这一来就避免了重复。函数在where绑定中定义的名字只对本函数可见，因此我们不必担心它会污染其他函数的命名空间。注意，其中的名字都是一列垂直排开，如果不这样规范，haskell就搞不清楚它们在哪个地方了。where绑定也可以使用模式匹配 1234initials :: String -&gt; String -&gt; String initials firstname lastname = [f] ++ &quot;. &quot; ++ [l] ++ &quot;.&quot; where (f:_) = firstname (l:_) = lastname where绑定可以定义名字，也可以定义函数 123calcBmis :: (RealFloat a) =&gt; [(a, a)] -&gt; [a] calcBmis xs = [bmi w h | (w, h) &lt;- xs] where bmi weight height = weight / height ^ 2 let 关键字where绑定是在函数底部定义名字，对包括所有门卫在内的整个函数可见。let绑定则是个表达式，允许你在任何位置定义局部变量，而对不同的门卫不可见，也可以使用模式匹配。let的格式为let [bindings] in [expressions]。在let中绑定的名字仅对in部分可见。let里面定义的名字也得对齐到一列。 12345cylinder :: (RealFloat a) =&gt; a -&gt; a -&gt; a cylinder r h = let sideArea = 2 * pi * r * h topArea = pi * r ^2 in sideArea + 2 * topArea let绑定本身是个表达式，可以随处安放；而where绑定则是个语法结构。 let也可以定义局部函数 1[let square x = x * x in (square 5, square 3, square 2)] case 表达式模式匹配本质上不过就是case语句的语法糖而已。 123head&apos; :: [a] -&gt; a head&apos; xs = case xs of [] -&gt; error &quot;No head for empty lists!&quot; (x:_) -&gt; x 1234describeList :: [a] -&gt; String describeList xs = &quot;The list is &quot; ++ case xs of [] -&gt; &quot;empty.&quot; [x] -&gt; &quot;a singleton list.&quot; xs -&gt; &quot;a longer list.&quot; 12345describeList :: [a] -&gt; String describeList xs = &quot;The list is &quot; ++ what xs where what [] = &quot;empty.&quot; what [x] = &quot;a singleton list.&quot; what xs = &quot;a longer list.&quot;]]></content>
+      <categories>
+        <category>Learn You a Haskell for Great Good!</category>
+      </categories>
+      <tags>
+        <tag>Haskell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[chapter3-操作符]]></title>
+    <url>%2Fchapter3-%E6%93%8D%E4%BD%9C%E7%AC%A6%2F</url>
+    <content type="text"><![CDATA[赋值 对基本类型的赋值，是直接将一个变量的内容赋值给了另一个变量。 对对象“赋值”时，真正操作的是对对象的引用，两个变量均指向同一个对象。 算术操作符加（+）减（-）乘（*）除（/）取模(%) 整数除法会直接去掉结果的小数部分，而不是四舍五入。 操作符后紧跟一个等号可以同时进行运算和赋值操作，对于所有操作符都有效。 一元减号（-）用于转变数据的符号； 一元加号（+）只是为了与一元减号相对应，唯一的作用的是将较小类型的数提升为int 自动递增和递减递增操作符（++），递减操作符（–） 对于前缀操作符，会先执行递增或递减运算，再生成值 对于后缀操作符，会先生成值，再执行递增或递减运算 关系操作符关系操作符生成的是一个boolean（布尔）结果，包括小于（&lt;），大于（&gt;），小于等于（&lt;=），大于等于（&gt;=），等于（==），不等于（!=） 等于和不等于适用于所有的基本数据类型，其他比较符不适用于boolean类型 当==和！=用于对象时，比较的就是对象的引用 如果需要比较两个对象的实际内容，则必须使用对象的equals()方法，该方法的默认行为是比较引用，需要根据实际类的情况进行重写，这个方法不适用于基本数据类型 逻辑操作符与（&amp;&amp;）或（||）非（!）根据参数的逻辑关系，生成boolean结果 与或非操作只可应用于布尔值，不能将非布尔值当做布尔值在逻辑表达式中使用 因为计算机无法精确表示浮点数，对浮点数进行比较需要小心 一旦能够明确确定整个逻辑表达式的值，就不会再计算表达式余下部分（短路现象） 直接常量 后缀L 代表long类型 后缀F 代表float类型 后缀D 代表double类型 前缀0x 代表十六进制 Integer和Long类的静态方法toBinaryString()可以将整数表示为二进制形式。如果传入较小类型的整数，会自动转换成相应的类的类型 按位操作符按位操作符用来操作整数基本类型中的单个bit，即二进制位，对两个参数中对应的位执行布尔代数运算，并生成结果 与（&amp;）或（|）非（~）异或（^） 布尔类型可以作为一种单bit值计算，可以执行与、或、异或，但为了避免与逻辑NOT混淆，不能执行非（~）操作 按位操作不会发生短路现象在移位表达式中，不能使用布尔运算 移位操作符 左移操作符（&lt;&lt;） 按照操作符右侧指定的位数将操作符左边的操作数向左移动（在低位补0） “有符号”右移操作符（&gt;&gt;） 按照操作符右侧指定的位数将操作符左边的操作数向右移动（符号为正，则在高位补0；符号为正，则在高位补1） “无符号”右移操作符（&gt;&gt;&gt;） 按照操作符右侧指定的位数将操作符左边的操作数向右移动（高位补0） 如果对char、byte或者short类型的数值进行移位处理，则在移位之前转换为int类型，并且得到的结果也是一个int类型的值。 如果对long类型进行处理，最后得到的结果也是long 三元操作符boolean-exp ? value0 : value1如果boolean-exp（布尔表达式）的结果为true，就计算value0并返回；如果boolean-exp（布尔表达式）的结果为false，就计算value1并返回. 字符串操作+和+=连接字符串如果表达式以一个字符串起头，那么后续的所有操作数都必须是字符串类型 类型转换 窄化转换，将较大数据类型转换成较小数据类型，面临信息丢失，需要显式进行类型转换。将float和double转型成整型时，总是对数字进行截尾。 扩展转换，不必显式进行类型转换。 只要类型比int小（char、byte、short）这些值会转换成int，生成的结果也是int 通常表达式中出现的最大的数据类型决定了表达式最终结果的数据类型。]]></content>
+      <categories>
+        <category>ThinkinginJava</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Haskell-类型和类型类]]></title>
+    <url>%2FHaskell-%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B1%BB%E5%9E%8B%E7%B1%BB%2F</url>
+    <content type="text"><![CDATA[类型 Int 表示整数 Integer 表示无界整数 Float 表示单精度的浮点数 Double 表示双精度的浮点数 Bool 表示布尔值，它只有两种值：True和False Char 表示一个字符 String 表示字符串，一组字符的List即为字符串，和[Char]一样 :t命令处理一个表达式的输出结果为表达式后跟::及其类型，::读作“它的类型为”。 函数的类型声明：函数名::类型-&gt;类型-&gt;类型 参数之间由-&gt;分隔，而与返回值之间并无特殊差异，返回值是最后一项。 类型变量类型变量可以是任意的类型，与其他语言中的泛型(generic)很相似，但在haskell中要更为强大。它可以让我们轻而易举地写出类型无关的函数，使用到类型变量的函数被称作“多态函数 ”。 类型类类型定义行为的接口，如果一个类型属于某类型类，那它必实现了该类型类所描述的行为，可以把它看做是java中接口（interface）的类似物。]]></content>
+      <categories>
+        <category>Learn You a Haskell for Great Good!</category>
+      </categories>
+      <tags>
+        <tag>Haskell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Haskell-入门]]></title>
+    <url>%2FHaskell-%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[简单运算 一行可以使用多个运算符，按照运算符优先等级机选，可以使用括号改变优先次序。 使用负数时最好将其置于括号中。 &amp;&amp; 逻辑与，|| 逻辑或，not 逻辑否，== 相等判断，/= 不等判断。 函数调用拥有最高的优先级。 如果某函数有两个参数，也可以用 ` 符号将它括起，以中缀函数的形式调用它。div 92 10等价于92 `div` 10。 使用let关键字定义常量。 函数 函数的声明形式：先函数名，后跟由空格分隔的参数表。但在声明中一定要在 = 后面定义函数的行为。 if语句，haskell中if语句的else部分是不可省略。if(condition) then else List List是一种单类型的数据结构，可以用来存储多个类型相同的元素。一个List由方括号括起，其中的元素用逗号分隔开来。 使用++运算符可以将两个List合并。Haskell会遍历整个的List(++符号左边的那个)。当左侧List长度很长时，执行效率较低。 : 运算符可以连接一个元素到一个List或者字符串之中，而++运算符则是连接两个List。若要使用++运算符连接单个元素到一个List之中，就用方括号把它括起使之成为单个元素的List。 使用 !! 运算符可以按照索引取得List中的元素，索引的下标从0开始。 List同样也可以用来装List，甚至是List的List的List。List中的List可以是不同长度，但必须得是相同的类型。 List常用函数 head 返回List的首个元素 tail 返回List除去头部之后的部分 last 返回LIst的最后一个元素 init 返回LIst除去最后一个元素的部分 length 返回List的长度 null 检查List是否为空 reverse 将List反转 take 返回List的前几个元素 drop 删除List中的前几个元素 maximum 返回List中最大的那个元素 minimum 返回List中最小的那个元素 sum 返回List中所有元素的和 product 返回List中所有元素的积 elem 判断一个元素是否在包含于List，通常以中缀函数的形式调用它 区间 [start..end]构造连续List。 [start,start+d..end]构造步长为d的List. cycle接受一个List做参数并返回一个无限List。 repeat接受一个值作参数，并返回一个仅包含该值的无限List。 replicate可以得到相同元素的List，如replicate 3 10，得[10,10,10]。 List Comprehension List Comprehension可以从既有的List中按照规则产生一个新List。 从多个List中取元素时[ x | x &lt;- [10..20], x /= 13, x /= 15, x /= 19] 从多个List中取元素时，comprehension会把所有的元素组合交付给输出函数。[ x*y | x &lt;- [2,5,10], y &lt;- [8,10,11]] 操作含有List的List，使用嵌套的List comprehension[ [ x | x &lt;- xs, even x ] | xs &lt;- xxs] List Comprehension可以分成多行 TupleTuple中的项不必为同一类型，在Tuple里可以存入多类型项的组合。Tuple的类型取决于其中项的数目与其各自的类型。Tuple中的项 由括号括起，并由逗号隔开。 序对一个长度为2的Tuple，也可以称作序对，Pair。 fst返回一个序对的首项。 snd返回序对的尾项。 这两个函数仅对序对有效，而不能应用于三元组，四元组和五元组之上。 zip可以用来生成一组序对(Pair)的List。它取两个List，然后将它们交叉配对，形成一组序对的List。较长的那个会在中间断开，去匹配较短的那个。]]></content>
+      <categories>
+        <category>Learn You a Haskell for Great Good!</category>
+      </categories>
+      <tags>
+        <tag>Haskell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[chapter2-一切都是对象]]></title>
+    <url>%2Fchapter2-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[对象储存 寄存器。最快的存储区，位于处理器的内部。不能直接控制，C和C++允许向编译器建议寄存器的分配方式。 堆栈。位于通用RAM（随机访问存储器）中，通过堆栈指针可以从处理器获得直接支持。堆栈指针向下移动，则分配新内存；向上移动，则释放那些内存。这是一种快速有效的分配存储方式，仅次于寄存器。Java必须知道存储在堆栈内所有项目的生命周期，以便于移动堆栈指针。Java对象并不存储于其中，某些Java数据存储于堆栈中—特别是对象的引用。 堆。一种通用内存池（也位于RAM区），用于存放所有Java对象。编译器不需要知道存储的数据在堆里存活多长时间。用堆进行存储分配和清理可能比用堆栈进行存储分配需要更多时间。 常量存储。常量通常直接存放在程序代码内部。 非RAM存储。 基本类型 基本类型 大小 最小值 最大值 包装器类型 boolean — — — Boolean char 16-bit Unicode 0 Unicode 216-1 Character byte 8-bit -128 127 Byte short 16-bit -215 215-1 Short int 32-bit -231 231-1 Integer long 64-bit -263 263-1 Long float 32-bit IEEE754 IEEE754 Float double 64-bit IEEE754 IEEE754 Double void — — — Void 所有数值类型都有正负号，所以不要寻找无符号的数值类型。 高精度数字 BigInteger。支持任意精度的整数。 BigDecimal。支持任意精度的定点数。 这两个类提供的操作与对基本类型所能执行的操作相似，但是必须以方法调用的方式取代运算符来实现。 成员变量默认值 基本类型 默认值 boolean false char ‘\u0000’(null) byte (byte)0 short (short)0 int 0 long 0L float 0.0f double 0.0d 当变量作为类的成员变量使用时，Java才确保给定相应的默认值，并不适用于“局部”变量。 static关键字当声明一个事物是static时，就说明这个域或方法不会与包含它的那个类的任何对象实例关联在一起。static字段对于每个类来说都只有一份储存空间。 编码风格 类名首字母大写；如果类名由多个单词构成，那么把它们连在一起，其中每个单词的首字母大写。 方法、字段以及对象的引用名称等的命名，与类的风格一致，只是标识符的第一个字母采用小写。]]></content>
+      <categories>
+        <category>ThinkinginJava</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+</search>
