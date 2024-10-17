@@ -1,0 +1,38 @@
+language: node_js
+node_js: stable
+
+cache:
+  directories:
+    - node_modules
+
+branches:
+  only:
+    - source
+
+before_install:
+  - npm install -g hexo-cli
+
+
+# S: Build Lifecycle
+install:
+  - npm install
+  - npm install hexo-deployer-git --save
+
+
+# before_script:
+ # - npm install -g gulp
+
+script:
+  - hexo clean
+  - hexo generate
+
+after_script:
+#  - cd ./public
+#  - git init
+  - git config user.name "gattia"
+  - git config user.email "gattia.su@gmail.com"
+#  - git add .
+#  - git commit -m "Update docs"
+#  - git push --force --quiet "${Travis}@${GH_REF}" master:master
+  - sed -i "s/GitHub_Token/${GitHub_Token}/g" ./_config.yml
+  - hexo deploy

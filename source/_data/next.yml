@@ -1,0 +1,268 @@
+override: false
+
+# Site
+title: 拙计
+subtitle:
+description:
+keywords:
+author: sirenyige
+language: zh-CN
+timezone:
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://sirenyige.gitee.io
+root: /blog/
+permalink: :title/
+permalink_defaults:
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+menu:
+  home: / || home
+  categories: /categories || th
+  tags: /tags || tags
+  archives: /archives || archive
+  about: /about || user
+  #schedule: /schedule/ || calendar
+  #sitemap: /sitemap.xml || sitemap
+  #commonweal: /404/ || heartbeat
+
+# Enable/Disable menu icons / item badges.
+menu_settings:
+  icons: true
+  badges: true
+
+
+
+# Schemes
+#scheme: Muse
+#scheme: Mist
+scheme: Pisces
+#scheme: Gemini
+
+
+sidebar:
+  # Sidebar Position, available values: left | right (only for Pisces | Gemini).
+  position: left
+  #position: right
+
+  # Manual define the sidebar width.
+  # If commented, will be default for:
+  # Muse | Mist: 320
+  # Pisces | Gemini: 240
+  #width: 300
+
+  # Sidebar Display, available values (only for Muse | Mist):
+  #  - post    expand on posts automatically. Default.
+  #  - always  expand for all pages automatically
+  #  - hide    expand only when click on the sidebar toggle icon.
+  #  - remove  Totally remove sidebar including sidebar toggle.
+  display: always
+  #display: always
+  #display: hide
+  #display: remove
+
+  # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
+  offset: 12
+  # Back to top in sidebar.
+  b2t: true
+  # Scroll percent label in b2t button.
+  scrollpercent: true
+  # Enable sidebar on narrow view (only for Muse | Mist).
+  onmobile: true
+
+
+# Automatically scroll page to section which is under <!-- more --> mark.
+scroll_to_more: false
+
+# Social Links
+# Usage: `Key: permalink || icon`
+# Key is the link label showing to end users.
+# Value before `||` delimeter is the target permalink.
+# Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
+social:
+  GitHub: https://github.com/sirenyige || github
+  #E-Mail: mailto:yourname@gmail.com || envelope
+  #Weibo: https://weibo.com/yourname || weibo
+  #Google: https://plus.google.com/yourname || google
+  #Twitter: https://twitter.com/yourname || twitter
+  #FB Page: https://www.facebook.com/yourname || facebook
+  #VK Group: https://vk.com/yourname || vk
+  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
+  #YouTube: https://youtube.com/yourname || youtube
+  #Instagram: https://instagram.com/yourname || instagram
+  #Skype: skype:yourname?call|chat || skype
+
+social_icons:
+  enable: true
+  GitHub: github
+  icons_only: true
+  transition: true
+
+# Follow me on GitHub banner in right-top corner.
+# Usage: `permalink || title`
+# Value before `||` delimeter is the target permalink.
+# Value after `||` delimeter is the title and aria-label name.
+#github_banner: https://github.com/yourname || Follow me on GitHub
+
+# Code Highlight theme
+# Available values: normal | night | night eighties | night blue | night bright
+# https://github.com/chriskempson/tomorrow-theme
+highlight_theme: night bright
+
+# Math Equations Render Support
+math:
+  enable: true
+
+  # Default(true) will load mathjax/katex script on demand
+  # That is it only render those page who has `mathjax: true` in Front Matter.
+  # If you set it to false, it will load mathjax/katex srcipt EVERY PAGE.
+  per_page: true
+
+  engine: mathjax
+  #engine: katex
+
+  # hexo-rendering-pandoc (or hexo-renderer-kramed) needed to full MathJax support.
+  mathjax:
+    # Use 2.7.1 as default, jsdelivr as default CDN, works everywhere even in China
+    cdn: //cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+    # For direct link to MathJax.js with CloudFlare CDN (cdnjs.cloudflare.com)
+    #cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML
+
+    # See: https://mhchem.github.io/MathJax-mhchem/
+    #mhchem: //cdn.jsdelivr.net/npm/mathjax-mhchem@3
+    #mhchem: //cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0
+
+  # hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin) needed to full Katex support.
+  katex:
+    # Use 0.7.1 as default, jsdelivr as default CDN, works everywhere even in China
+    cdn: //cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css
+    # CDNJS, provided by cloudflare, maybe the best CDN, but not works in China
+    #cdn: //cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css
+
+    copy_tex:
+      # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex
+      enable: false
+      copy_tex_js: //cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js
+      copy_tex_css: //cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css
+
+# Gitment
+# Introduction: https://github.com/imsun/gitment
+gitment:
+  enable: false
+  mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
+  count: true # Show comments count in post meta area
+  lazy: true # Comments lazy loading with a button
+  cleanly: true # Hide 'Powered by ...' on footer, and more
+  language: # Force language, or auto switch by theme
+  github_user: sirenyige # MUST HAVE, Your Github ID
+  github_repo: gitment # MUST HAVE, The repo you use to store Gitment comments
+  client_id: 6c7298153cea7193715a # MUST HAVE, Github client id for the Gitment
+  client_secret: acc0657b0d982892f15a6f4f1be5d60e379c8444 # EITHER this or proxy_gateway, Github access secret token for the Gitment
+  proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
+  redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
+
+# Show number of visitors to each article.
+# You can visit https://leancloud.cn get AppID and AppKey.
+leancloud_visitors:
+  enable: true
+  app_id: bj65ERk5T7hWsm10C5r8EXvV-gzGzoHsz
+  app_key: NPw9JSvENye1hPLO765ceOpa
+  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+  # If you don't care about security in leancloud counter and just want to use it directly
+  # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
+  security: false
+  betterPerformance: false
+
+# Local search
+# Dependencies: https://github.com/theme-next/hexo-generator-searchdb
+local_search:
+  enable: true
+  # if auto, trigger search by changing input
+  # if manual, trigger search by pressing enter key or search button
+  trigger: auto
+  # show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # unescape html strings to the readable one
+  unescape: false
+
+# Canvas-nest
+# Dependencies: https://github.com/theme-next/theme-next-canvas-nest
+canvas_nest:
+  enable: false
+  onmobile: false # display on mobile or not
+  color: '120,120,120' # RGB values, use ',' to separate
+  opacity: 0.5 # the opacity of line: 0~1
+  zIndex: -1 # z-index property of the background
+  count: 99 # the number of lines
+
+# Sidebar Avatar
+avatar:
+  # in theme directory(source/images): /images/avatar.gif
+  # in site  directory(source/uploads): /uploads/avatar.gif
+  # You can also use other linking images.
+  url: /images/avatar.png
+  # If true, the avatar would be dispalyed in circle.
+  rounded: false
+  # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
+  opacity: 1
+  # If true, the avatar would be rotated with the cursor.
+  rotated: false
+
+deploy:
+  type: git
+  repo: https://GitHub_Token@github.com/sirenyige/sirenyige.github.io.git
+  branch: master
+  message:
+
+
+footer:
+  # Specify the date when the site was setup.
+  # If not defined, current year will be used.
+  #since: 2015
+
+  # Icon between year and copyright info.
+  icon:
+    # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons/
+    # `heart` is recommended with animation in red (#ff0000).
+    name: heart
+    # If you want to animate the icon, set it to true.
+    animated: false
+    # Change the color of icon, using Hex Code.
+    color: "#808080"
+
+  # If not defined, `author` from Hexo main config will be used.
+  copyright:
+  # -------------------------------------------------------------
+  powered:
+    # Hexo link (Powered by Hexo).
+    enable: false
+    # Version info of Hexo after Hexo link (vX.X.X).
+    version: false
+
+  theme:
+    # Theme & scheme info link (Theme - NexT.scheme).
+    enable: false
+    # Version info of NexT after scheme info (vX.X.X).
+    version: false
+  # -------------------------------------------------------------
+  # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
+  # http://www.miitbeian.gov.cn
+  beian:
+    enable: false
+    icp:
+
+  # -------------------------------------------------------------
+  # Any custom text can be defined here.
+  #custom_text: Hosted by <a href="https://pages.coding.me" class="theme-link" rel="noopener" target="_blank">Coding Pages</a>
+
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
